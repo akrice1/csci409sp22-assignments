@@ -17,4 +17,4 @@ def airport_info(request, airport_code):
     # We are only expecting one airport per code so we will use get().
     airport = Airport.objects.get(airport_code=airport_code)
     context = {'airport': airport}
-    return render(request, 'airports/airports.html', context)
+    return render(request, 'airports/airport.html', context)
