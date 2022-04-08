@@ -2,8 +2,10 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Reservation
 from .forms import TicketForm
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def index(request):
     # Create an instance of the form class.
     form = TicketForm()
@@ -11,6 +13,7 @@ def index(request):
     return render(request, 'tickets/index.html', {'form': form})
 
 
+@login_required
 def search(request):
     form = TicketForm(request.POST)
     if form.is_valid():
@@ -24,4 +27,3 @@ def ticket_search(request, confirmation_number):
     reservation = Reservation.objects.get(id=confirmation_number)
     return HttpResponse(
         'Number of tickets for confirmation number: ' + str(confirmation_number) + " is " + str(reservation.num_people))
-
